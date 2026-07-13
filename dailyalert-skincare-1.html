@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>dailyalert — Skincare &amp; Beauty Devices · Ad Intelligence Report 01</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --ink:   #6b3d00;
+    --paper: #fdf8f3;
+    --rule:  #dfd0b8;
+    --muted: #8b7355;
+    --light: #f5ead8;
+    --white: #ffffff;
+  }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--paper); color: var(--ink); font-size: 14px; line-height: 1.6; }
+
+  /* ── HEADER ── */
+  .report-header { background: var(--ink); color: var(--white); padding: 40px 48px 36px; }
+  .report-header .store-tag { font-size: 0.65rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; opacity: 0.5; margin-bottom: 8px; }
+  .report-header h1 { font-family: 'Georgia', 'Times New Roman', serif; font-size: 1.9rem; font-weight: 700; line-height: 1.2; letter-spacing: -0.5px; margin-bottom: 10px; }
+  .report-header .meta { font-size: 0.78rem; opacity: 0.55; }
+  .report-header .meta span { margin-right: 20px; }
+
+  /* ── AT A GLANCE ── */
+  .glance-bar { background: var(--white); border-bottom: 2px solid var(--ink); display: flex; }
+  .glance-item { flex: 1; padding: 20px 24px; border-right: 1px solid var(--rule); text-align: center; }
+  .glance-item:last-child { border-right: none; }
+  .glance-val { font-family: 'Georgia', serif; font-size: 2rem; font-weight: 700; color: var(--ink); display: block; line-height: 1; }
+  .glance-lbl { font-size: 0.65rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); display: block; margin-top: 5px; }
+
+  /* ── INTELLIGENCE BLOCK ── */
+  .intel-block { padding: 36px 48px; background: var(--light); border-bottom: 1px solid var(--rule); }
+  .intel-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 20px; }
+  .intel-card { background: var(--white); border-top: 3px solid var(--ink); padding: 18px 20px; }
+  .intel-card .ic-label { font-size: 0.62rem; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+  .intel-card .ic-title { font-family: 'Georgia', serif; font-size: 0.95rem; font-weight: 700; color: var(--ink); margin-bottom: 6px; }
+  .intel-card .ic-body { font-size: 0.78rem; color: var(--muted); line-height: 1.55; }
+
+  /* ── SECTION HEADER ── */
+  .section-wrap { padding: 40px 48px 0; }
+  .section-head { border-bottom: 2px solid var(--ink); padding-bottom: 10px; margin-bottom: 24px; display: flex; align-items: baseline; justify-content: space-between; }
+  .section-head h2 { font-family: 'Georgia', serif; font-size: 1.25rem; font-weight: 700; color: var(--ink); }
+  .section-head .s-count { font-size: 0.68rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
+  .section-desc { font-size: 0.82rem; color: var(--muted); margin-bottom: 24px; line-height: 1.5; }
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; padding-bottom: 40px; }
+
+  /* ── ADVERTISER CARD ── */
+  .ad-card { background: var(--white); border: 1px solid var(--rule); border-top: 3px solid var(--ink); }
+  .ad-card-head { padding: 14px 16px 10px; border-bottom: 1px solid var(--rule); }
+  .ad-card-name { font-size: 0.95rem; font-weight: 700; color: var(--ink); margin-bottom: 2px; }
+  .ad-card-domain { font-size: 0.72rem; color: var(--muted); }
+  .ad-card-body { padding: 12px 16px; }
+  .ad-card-row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px; }
+  .ad-card-days { font-family: 'Georgia', serif; font-size: 1.5rem; font-weight: 700; color: var(--ink); line-height: 1; }
+  .ad-card-days-lbl { font-size: 0.62rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--muted); margin-top: 1px; }
+  .ad-card-variants { font-size: 0.72rem; color: var(--muted); background: var(--light); padding: 2px 8px; }
+  .ad-card-hook { font-size: 0.78rem; color: #374151; line-height: 1.5; font-style: italic; margin-bottom: 12px; border-left: 2px solid var(--rule); padding-left: 10px; }
+  .ad-card-niche { font-size: 0.68rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--ink); background: var(--light); padding: 3px 8px; display: inline-block; margin-bottom: 10px; }
+  .ad-card-btns { display: flex; gap: 8px; margin-top: 10px; }
+  .btn-primary { background: var(--ink); color: var(--white); border: none; padding: 7px 14px; font-size: 0.7rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; display: inline-block; cursor: pointer; }
+  .btn-secondary { background: transparent; color: var(--ink); border: 1.5px solid var(--ink); padding: 7px 14px; font-size: 0.7rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; display: inline-block; cursor: pointer; }
+  .btn-primary:hover { opacity: 0.85; }
+  .btn-secondary:hover { background: var(--ink); color: var(--white); }
+
+  /* ── FULL TABLE ── */
+  .table-wrap { padding: 0 48px 48px; }
+  .full-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; background: var(--white); border: 1px solid var(--rule); }
+  .full-table thead tr { background: var(--ink); color: var(--white); }
+  .full-table th { padding: 10px 12px; text-align: left; font-size: 0.62rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
+  .full-table td { padding: 9px 12px; border-bottom: 1px solid var(--rule); vertical-align: middle; color: var(--ink); }
+  .full-table tr:last-child td { border-bottom: none; }
+  .full-table tr:nth-child(even) td { background: var(--light); }
+  .days-strong { font-weight: 700; font-family: 'Georgia', serif; font-size: 0.92rem; }
+  .tier-badge { font-size: 0.6rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 2px 7px; }
+  .tier-winner { background: var(--ink); color: var(--white); }
+  .tier-scaling { background: var(--light); color: var(--ink); border: 1px solid var(--rule); }
+  .tier-watch  { background: transparent; color: var(--muted); border: 1px solid var(--rule); }
+
+  /* ── FOOTER ── */
+  .report-footer { background: var(--ink); color: var(--white); padding: 24px 48px; font-size: 0.75rem; opacity: 1; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+  .report-footer span { opacity: 0.5; }
+
+  @media (max-width: 720px) {
+    .report-header, .intel-block, .section-wrap, .table-wrap { padding-left: 20px; padding-right: 20px; }
+    .glance-bar { flex-wrap: wrap; }
+    .intel-grid { grid-template-columns: 1fr; }
+    .card-grid { grid-template-columns: 1fr; }
+    .report-footer { padding: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<div class="report-header">
+  <div class="store-tag">dailyalert · Ad Intelligence Report 01</div>
+  <h1>Skincare &amp; Beauty Devices<br>Facebook Ad Library Analysis</h1>
+  <div class="meta">
+    <span>Category: Health &amp; Beauty &gt; Personal Care &gt; Cosmetics &gt; Skin Care</span>
+    <span>Generated: July 13, 2026</span>
+    <span>Source: Facebook Ad Library</span>
+  </div>
+</div>
+
+<!-- ── AT A GLANCE ── -->
+<div class="glance-bar">
+  <div class="glance-item"><span class="glance-val">18</span><span class="glance-lbl">Active Advertisers</span></div>
+  <div class="glance-item"><span class="glance-val">7</span><span class="glance-lbl">Running 100+ Days</span></div>
+  <div class="glance-item"><span class="glance-val">6</span><span class="glance-lbl">Scaling 30–99 Days</span></div>
+  <div class="glance-item"><span class="glance-val">1,130</span><span class="glance-lbl">Longest Running (Days)</span></div>
+  <div class="glance-item"><span class="glance-val">LED Devices</span><span class="glance-lbl">Dominant Sub-Niche</span></div>
+</div>
+
+<!-- ── INTELLIGENCE BLOCK ── -->
+<div class="intel-block">
+  <div style="font-size:0.65rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:6px;">Category Intelligence</div>
+  <div style="font-family:'Georgia',serif;font-size:1.2rem;font-weight:700;color:var(--ink);">What the data tells you before you spend a dollar on ads</div>
+  <div class="intel-grid">
+    <div class="intel-card">
+      <div class="ic-label">Signal 01 — Proven Winner</div>
+      <div class="ic-title">K-Beauty Devices + Serums</div>
+      <div class="ic-body">Medicube and related K-beauty pages have run continuously for 816–1,130 days. The winning formula is a glow device bundled with a collagen serum. Extremely validated, but highly brand-dependent — difficult to white-label directly.</div>
+    </div>
+    <div class="intel-card">
+      <div class="ic-label">Signal 02 — Biggest Opportunity</div>
+      <div class="ic-title">At-Home LED / Red Light Facial Devices</div>
+      <div class="ic-body">Botanique Paris (500d), Kelly Moore (82d), Dermawell (76d), and iRESTORE (37d) are all selling variations of the same product: an at-home LED or red-light device for anti-aging and skin tightening. Multiple brands, same supplier source — prime dropship opportunity.</div>
+    </div>
+    <div class="intel-card">
+      <div class="ic-label">Signal 03 — Adjacent Opportunity</div>
+      <div class="ic-title">IPL Hair Removal Devices</div>
+      <div class="ic-body">Ulike (53d, 3 ad variants) and JOVS (20d) are actively spending on IPL hair removal. High AOV ($200–400), strong summer seasonality, well-stocked on Zendrop. Complements a beauty device store well as a second SKU.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- SECTION 1: PROVEN WINNERS                                 -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="section-wrap">
+  <div class="section-head">
+    <h2>Proven Winners — 100+ Days Running</h2>
+    <span class="s-count">7 advertisers</span>
+  </div>
+  <p class="section-desc">These pages have sustained paid spend for over 100 days. In Facebook advertising, profitability is the only reason to keep running an ad past 60 days. Every advertiser in this tier has a proven, converting offer.</p>
+  <div class="card-grid">
+
+    <!-- DIBS on Trends -->
+    <div class="ad-card">
+      <div class="ad-card-head">
+        <div class="ad-card-name">DIBS on Trends</div>
+        <div class="ad-card-domain">medicube.us</div>
+      </div>
+      <div class="ad-card-body">
+        <div class="ad-card-row">
+          <div><div class="ad-card-days">1,130</div><div class="ad-card-days-lbl">Days Running</div></div>
+          <span class="ad-card-variants">1 ad variant</span>
+        </div>
+        <div class="ad-card-niche">K-Beauty · Device + Serum Bundle</div>
+        <div class="ad-card-hook">"Here's How You Can Achieve The Glowy, Clean Girl Look — Triple Collagen Serum + Booster H Device"</div>
+        <div class="ad-card-btns">
+          <a class="btn-primary" href="https://www.facebook.com/ads/library/?id=983785802701799" target="_blank">View Ad</a>
+          <a class="btn-secondary" href="https://medicube.us" target="_blank">Visit Store</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- K-Beauty Bestie -->
+    <div class="ad-card">
+      <div class="ad-card-head">
+        <div class="ad-card-name">K-Beauty Bestie</div>
+        <div class="ad-card-domain">fb.com (lead capture)</div>
+      </div>
+      <div class="ad-card-body">
+        <div class="ad-card-row">
+          <div><div class="ad-card-days">918</div><div class="ad-card-days-lbl">Days Running</div></div>
+          <span class="ad-card-variants">1 ad variant</span>
+        </div>
+        <div class="ad-card-niche">K-Beauty · Moisturizer + Glow Device</div>
+        <div class="ad-card-hook">"Korea's Bestselling k-beauty moisturizer &amp; award winning glow boosting device — smooth, nourished and plump skin just like your FAV Korean celeb"</div>
+        <div class="ad-card-btns">
+          <a class="btn-primary" href="https://www.facebook.com/ads/library/?id=1044734693313583" target="_blank">View Ad</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Medicube -->
+    <div class="ad-card">
+      <div class="ad-card-head">
+        <div class="ad-card-name">Medicube</div>
+        <div class="ad-card-domain">medicube.us</div>
+      </div>
+      <div class="ad-card-body">
+        <div class="ad-card-row">
+          <div><div class="ad-card-days">913</div><div class="ad-card-days-lbl">Days Running</div></div>
+          <span class="ad-card-variants">3 active ads</span>
+        </div>
+        <div class="ad-card-niche">K-Beauty · Collagen Serum + Device</div>
+        <div class="ad-card-hook">"Glow in a Shot of Milk — Koreans have long used raw milk for beauty since childhood. One shot of the Collagen Glow Booster Milk Serum will improve overall skin texture"</div>
+        <div class="ad-card-btns">
+          <a class="btn-primary" href="https://www.facebook.com/ads/library/?id=1030906477986411" target="_blank">View Ad</a>
+          <a class="btn-secondary" href="https://medicube.us" target="_blank">Visit Store</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Botanique Paris -->
+    <div class="ad-card">
+      <div class="ad-card-head">
+        <div class="ad-card-name">Botanique Paris</div>
+        <div class="ad-card-domain">shopbotaniqueparis.com</div>
+      </div>
+      <div class="ad-card-body">
+        <div class="ad-card-row">
+          <div><div class="ad-card-days">500</div><div class="ad-card-days-lbl">Days Running</div></div>
+          <span class="ad-card-variants">1 ad variant</span>
+        </div>
+        <div class="ad-card-niche">LED / Red Light · Anti-Aging Under-Eye</div>
+        <div class="ad-card-hook">"10 Years Younger with this Sneaky Hack — Get Rid Of Dark Circles While You Netflix &amp; Chill. 20 Minutes of Red Light Therapy = Botox &amp; Under-Eye Filler. 25,000+ Happy Customers"</div>
+        <div class="ad-card-btns">
+          <a class="btn-primary" href="https://www.facebook.com/ads/library/?id=1012545517572826" target="_blank">View Ad</a>
+          <a class="btn-secondary" href="https://shopbotaniqueparis.com" target="_blank">Visit Store</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Our Skin Haven -->
+    <div class="ad-card">
+      <div class="ad-card-head">
+        <div class="ad-card-name">Our Skin Haven</div>
+        <div class="ad-card-domain">ourskinhaven.com</div>
+      </div>
+      <div class="ad-card-body">
+        <div class="ad-card-row">
+          <div><div class="ad-card-days">415</div><div class="ad-card-days-lbl">Days Running</div></div>
+          <span class="ad-card-variants">3 active ads</span>
+        </div>
+        <div class="ad-card-niche">Body Sculpting · Cellulite Device</div>
+        <div class="ad-card-hook">"I don't often write reviews, but I need to share how amazing this body sculpting device is! I've struggled with stubborn cellulite and uneven skin texture for years..."</div>
+        <div class="ad-card-btns">
+          <a class="btn-primary" href="https://www.facebook.com/ads/library/?id=1766826014218814" target="_blank">View Ad</a>
+          <a class="btn-secondary" href="https://ourskinhaven.com" target="_blank">Visit Store</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pedestrian Project -->
+    <div class="ad-card">
+      <div class="ad-card-head">
+        <div class="ad-card-name">Pedestrian Project</div>
+        <div class="ad-card-domain">pedestrianproject.com</div>
+      </div>
+      <div class="ad-card-body">
+        <div class="ad-card-row">
+          <div><div class="ad-card-days">227</div><div class="ad-card-days-lbl">Days Running</div></div>
+          <span class="ad-card-variants">1 ad variant</span>
+        </div>
+        <div class="ad-card-niche">Personal Care · Foot Care</div>
+        <div class="ad-card-hook">"Learn why Podiatrist Dr. Keeter loves Pedestrian's line of natural foot care" — doctor-endorsed angle with professional credibility hook.</div>
+        <div class="ad-card-btns">
+          <a class="btn-primary" href="https://www.facebook.com/ads/library/?id=1415392663482785" target="_blank">View Ad</a>
+          <a class="btn-secondary" href="https://pedestrianproject.com" target="_blank">Visit Store</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Julia Bennett / Nolara -->
+    <div class="ad-card">
+      <div class="ad-card-head">
+        <div class="ad-card-name">Julia Bennett</div>
+        <div class="ad-card-domain">nolara.shop</div>
+      </div>
+      <div class="ad-card-body">
+        <div class="ad-card-row">
+          <div><div class="ad-card-days">156</div><div class="ad-card-days-lbl">Days Running</div></div>
+          <span class="ad-card-variants">2 active ads</span>
+        </div>
+        <div class="ad-card-niche">Influencer Funnel · Personal Care</div>
+        <div class="ad-card-hook">"My mom's home health nurse asked why the bathroom still smelled like that after everything we'd done..." — long-form story angle driving to nolara.shop</div>
+        <div class="ad-card-btns">
+          <a class="btn-primary" href="https://www.facebook.com/ads/library/?id=1189448486592597" target="_blank">View Ad</a>
+          <a class="btn-secondary" href="https://nolara.shop" target="_blank">Visit Store</a>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /card-grid -->
+</div><!-- /section-wrap -->
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- SECTION 2: ACTIVELY SCALING                               -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="section-wrap" style="padding-top:0;">
+  <div class="section-head">
+    <h2>Actively Scaling — 30 to 99 Days</h2>
+    <span class="s-count">6 advertisers</span>
+  </div>
+  <p class="section-desc">New entrants with proven traction. These are advertisers who have passed the testing phase and are now in profitability — strong signals for products worth validating on Zendrop.</p>
+  <div class="card-grid">
+
+    <!-- Kelly Moore -->
+    <div class="ad-card">
+      <div class="ad-card-head">
+        <div class="ad-card-name">Kelly Moore Skin Expert</div>
+        <div class="ad-card-domain">botaniqueparis.com</div>
+      </div>
+      <div class="ad-card-body">
+        <div class="ad-card-row">
+          <div><div class="ad-card-days">82</div><div class="ad-card-days-lbl">Days Running</div></div>
+          <span class="ad-card-variants">2 ad variants</span>
+        </div>
+        <div class="ad-card-niche">LED / EMS · Anti-Aging Under-Eye</div>
+        <div class="ad-card-hook">"Teenage undereyes — yes, it's possible to reverse aging under your eyes without surgery. Red light therapy with 630nm (NASA) and Electric Muscle Stimulation are the most effective treatments available"</div>
+        <div class="ad-card-btns">
+          <a class="btn-primary" href="https://www.facebook.com/ads/library/?id=1675255760564481" target="_blank">View Ad</a>
+          <a class="btn-secondary" href="https://botaniqueparis.com" target="_blank">Visit Store</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dermawell -->
+    <div class="ad-card">
+      <div class="ad-card-head">
+        <div class="ad-card-name">Dermawell Skin</div>
+        <div class="ad-card-domain">get.dermawellmd.com</div>
+      </div>
+      <div class="ad-card-body">
+        <div class="ad-card-row">
+          <div><div class="ad-card-days">76</div><div class="ad-card-days-lbl">Days Running</div></div>
+          <span class="ad-card-variants">5 active ads · HIGH VOLUME</span>
+        </div>
+        <div class="ad-card-niche">LED Facial Sculptor · Anti-Aging</div>
+        <div class="ad-card-hook">"SPRING SALE — 50% OFF + 4 FREE Gifts. Transform your self-care routine with the Dermawell LED Facial Sculptor — your all-in-one device for lifting, tightening, and rejuvenating skin"</div>
+        <div class="ad-card-btns">
+          <a class="btn-primary" href="https://www.facebook.com/ads/library/?id=941234708795241" target="_blank">View Ad</a>
+          <a class="btn-secondary" href="https://get.dermawellmd.com" target="_blank">Visit Store</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ulike -->
+    <div class="ad-card">
+      <div class="ad-card-head">
+        <div class="ad-card-name">Ulike Global</div>
+        <div class="ad-card-domain">ulike.com</div>
+      </div>
+      <div class="ad-card-body">
+        <div class="ad-card-row">
+          <div><div class="ad-card-days">53</div><div class="ad-card-days-lbl">Days Running</div></div>
+          <span class="ad-card-variants">3 ad variants · HIGH VOLUME</span>
+        </div>
+        <div class="ad-card-niche">IPL Hair Removal · At-Home Device</div>
+        <div class="ad-card-hook">"15% OFF Ulike Air 10 Deluxe — Hot Girl Summer Starts with Smooth Skin. Feel confident in every bikini, dress, and sleeveless look. Fast IPL treatments designed for visible results"</div>
+        <div class="ad-card-btns">
+          <a class="btn-primary" href="https://www.facebook.com/ads/library/?id=1437610508134707" target="_blank">View Ad</a>
+          <a class="btn-secondary" href="https://ulike.com" target="_blank">Visit Store</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Natalie's Skincare Diary -->
+    <div class="ad-card">
+      <div class="ad-card-head">
+        <div class="ad-card-name">Natalie's Skincare Diary</div>
+        <div class="ad-card-domain">macrohealth.store</div>
+      </div>
+      <div class="ad-card-body">
+        <div class="ad-card-row">
+          <div><div class="ad-card-days">43</div><div class="ad-card-days-lbl">Days Running</div></div>
+          <span class="ad-card-variants">2 ad variants</span>
+        </div>
+        <div class="ad-card-niche">Influencer Diary · Clinical At-Home Skincare</div>
+        <div class="ad-card-hook">"2026 is your year for better skin. Not with another expensive facial that fades in two weeks. Not with a 12-step routine you'll quit by February. With 15 minutes a day. Clinical-grade results. At home."</div>
+        <div class="ad-card-btns">
+          <a class="btn-primary" href="https://www.facebook.com/ads/library/?id=3921053144692387" target="_blank">View Ad</a>
+          <a class="btn-secondary" href="https://macrohealth.store" target="_blank">Visit Store</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- iRESTORE Body -->
+    <div class="ad-card">
+      <div class="ad-card-head">
+        <div class="ad-card-name">iRESTORE Body</div>
+        <div class="ad-card-domain">irestorelaser.com</div>
+      </div>
+      <div class="ad-card-body">
+        <div class="ad-card-row">
+          <div><div class="ad-card-days">37</div><div class="ad-card-days-lbl">Days Running</div></div>
+          <span class="ad-card-variants">3 ad variants · HIGH VOLUME</span>
+        </div>
+        <div class="ad-card-niche">Red Light Therapy · Body Panel</div>
+        <div class="ad-card-hook">"Stop me if you've heard this before — you bought a red light panel for $400–$800 hoping it would do what the studies say... Recover faster. Skin tightening. Better sleep. And it did nothing."</div>
+        <div class="ad-card-btns">
+          <a class="btn-primary" href="https://www.facebook.com/ads/library/?id=1694970108366397" target="_blank">View Ad</a>
+          <a class="btn-secondary" href="https://irestorelaser.com" target="_blank">Visit Store</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dermawell (second page) -->
+    <div class="ad-card">
+      <div class="ad-card-head">
+        <div class="ad-card-name">Dermawell</div>
+        <div class="ad-card-domain">get.dermawellmd.com</div>
+      </div>
+      <div class="ad-card-body">
+        <div class="ad-card-row">
+          <div><div class="ad-card-days">64</div><div class="ad-card-days-lbl">Days Running</div></div>
+          <span class="ad-card-variants">1 ad variant</span>
+        </div>
+        <div class="ad-card-niche">LED Facial Sculptor · Second Page Test</div>
+        <div class="ad-card-hook">Second Facebook page running the same Dermawell LED Facial Sculptor offer — common tactic to split-test audiences and scale budget across multiple ad accounts simultaneously.</div>
+        <div class="ad-card-btns">
+          <a class="btn-primary" href="https://www.facebook.com/ads/library/?id=1630167241539308" target="_blank">View Ad</a>
+          <a class="btn-secondary" href="https://get.dermawellmd.com" target="_blank">Visit Store</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- SECTION 3: WATCH LIST                                     -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="section-wrap" style="padding-top:0;">
+  <div class="section-head">
+    <h2>Watch List — Under 30 Days</h2>
+    <span class="s-count">5 advertisers</span>
+  </div>
+  <p class="section-desc">Recent entrants in the testing phase. Monitor over the next 2–3 weeks. If still running at 30+ days, move to the Scaling tier and take notice of their offer angle.</p>
+  <div class="card-grid">
+
+    <div class="ad-card" style="border-top-color:var(--muted);">
+      <div class="ad-card-head"><div class="ad-card-name">JOVS</div><div class="ad-card-domain">jovs.com</div></div>
+      <div class="ad-card-body">
+        <div class="ad-card-row"><div><div class="ad-card-days" style="color:var(--muted);">20</div><div class="ad-card-days-lbl">Days Running</div></div><span class="ad-card-variants">1 ad variant</span></div>
+        <div class="ad-card-niche">IPL Hair Removal</div>
+        <div class="ad-card-btns"><a class="btn-primary" href="https://www.facebook.com/ads/library/?id=1563269075366033" target="_blank">View Ad</a><a class="btn-secondary" href="https://jovs.com" target="_blank">Visit Store</a></div>
+      </div>
+    </div>
+
+    <div class="ad-card" style="border-top-color:var(--muted);">
+      <div class="ad-card-head"><div class="ad-card-name">Exclusive Beauty Club</div><div class="ad-card-domain">exclusivebeautyclub.com</div></div>
+      <div class="ad-card-body">
+        <div class="ad-card-row"><div><div class="ad-card-days" style="color:var(--muted);">19</div><div class="ad-card-days-lbl">Days Running</div></div><span class="ad-card-variants">2 ad variants</span></div>
+        <div class="ad-card-niche">Beauty Subscription / Products</div>
+        <div class="ad-card-btns"><a class="btn-primary" href="https://www.facebook.com/ads/library/?id=991103850439989" target="_blank">View Ad</a><a class="btn-secondary" href="https://exclusivebeautyclub.com" target="_blank">Visit Store</a></div>
+      </div>
+    </div>
+
+    <div class="ad-card" style="border-top-color:var(--muted);">
+      <div class="ad-card-head"><div class="ad-card-name">INIA</div><div class="ad-card-domain">theinia.com</div></div>
+      <div class="ad-card-body">
+        <div class="ad-card-row"><div><div class="ad-card-days" style="color:var(--muted);">12</div><div class="ad-card-days-lbl">Days Running</div></div><span class="ad-card-variants">3 ad variants</span></div>
+        <div class="ad-card-niche">Wellness / Energy Device</div>
+        <div class="ad-card-btns"><a class="btn-primary" href="https://www.facebook.com/ads/library/?id=1990955745125029" target="_blank">View Ad</a><a class="btn-secondary" href="https://theinia.com" target="_blank">Visit Store</a></div>
+      </div>
+    </div>
+
+    <div class="ad-card" style="border-top-color:var(--muted);">
+      <div class="ad-card-head"><div class="ad-card-name">Life Changing Energy</div><div class="ad-card-domain">lifechangingenergy.com</div></div>
+      <div class="ad-card-body">
+        <div class="ad-card-row"><div><div class="ad-card-days" style="color:var(--muted);">10</div><div class="ad-card-days-lbl">Days Running</div></div><span class="ad-card-variants">1 ad variant</span></div>
+        <div class="ad-card-niche">Wellness / Energy</div>
+        <div class="ad-card-btns"><a class="btn-primary" href="https://www.facebook.com/ads/library/?id=1037435472568162" target="_blank">View Ad</a><a class="btn-secondary" href="https://lifechangingenergy.com" target="_blank">Visit Store</a></div>
+      </div>
+    </div>
+
+    <div class="ad-card" style="border-top-color:var(--muted);">
+      <div class="ad-card-head"><div class="ad-card-name">ZAQ</div><div class="ad-card-domain">zaq.com</div></div>
+      <div class="ad-card-body">
+        <div class="ad-card-row"><div><div class="ad-card-days" style="color:var(--muted);">5</div><div class="ad-card-days-lbl">Days Running</div></div><span class="ad-card-variants">2 ad variants</span></div>
+        <div class="ad-card-niche">Beauty Device</div>
+        <div class="ad-card-btns"><a class="btn-primary" href="https://www.facebook.com/ads/library/?id=1007306365486633" target="_blank">View Ad</a><a class="btn-secondary" href="https://zaq.com" target="_blank">Visit Store</a></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- FULL REFERENCE TABLE                                      -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="table-wrap">
+  <div style="border-bottom:2px solid var(--ink);padding-bottom:10px;margin-bottom:20px;display:flex;align-items:baseline;justify-content:space-between;">
+    <div style="font-family:'Georgia',serif;font-size:1.25rem;font-weight:700;color:var(--ink);">Full Reference Table</div>
+    <div style="font-size:0.68rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);">18 advertisers · all tiers</div>
+  </div>
+  <table class="full-table">
+    <thead>
+      <tr>
+        <th>Advertiser</th>
+        <th>Days</th>
+        <th>Ads</th>
+        <th>Niche</th>
+        <th>Store Domain</th>
+        <th>Tier</th>
+        <th>Links</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>DIBS on Trends</td><td class="days-strong">1,130</td><td>1</td><td>K-Beauty Device + Serum</td><td>medicube.us</td><td><span class="tier-badge tier-winner">Winner</span></td><td><a href="https://www.facebook.com/ads/library/?id=983785802701799" target="_blank" style="color:var(--ink);font-size:0.72rem;font-weight:700;">Ad</a> &nbsp; <a href="https://medicube.us" target="_blank" style="color:var(--ink);font-size:0.72rem;font-weight:700;">Store</a></td></tr>
+      <tr><td>K-Beauty Bestie</td><td class="days-strong">918</td><td>1</td><td>K-Beauty Moisturizer + Device</td><td>fb.com</td><td><span class="tier-badge tier-winner">Winner</span></td><td><a href="https://www.facebook.com/ads/library/?id=1044734693313583" target="_blank" style="color:var(--ink);font-size:0.72rem;font-weight:700;">Ad</a></td></tr>
+      <tr><td>Medicube</td><td class="days-strong">913</td><td>3</td><td>K-Beauty Collagen Serum + Device</td><td>medicube.us</td><td><span class="tier-badge tier-winner">Winner</span></td><td><a href="https://www.facebook.com/ads/library/?id=1030906477986411" target="_blank" style="color:var(--ink);font-size:0.72rem;font-weight:700;">Ad</a> &nbsp; <a href="https://medicube.us" target="_blank" style="color:var(--ink);font-size:0.72rem;font-weight:700;">Store</a></td></tr>
+      <tr><td>Botanique Paris</td><td class="days-strong">500</td><td>1</td><td>LED Red Light Anti-Aging</td><td>shopbotaniqueparis.com</td><td><span class="tier-badge tier-winner">Winner</span></td><td><a href="https://www.facebook.com/ads/library/?id=1012545517572826" target="_blank" style="color:var(--ink);font-size:0.72rem;font-weight:700;">Ad</a> &nbsp; <a href="https://shopbotaniqueparis.com" target="_blank" style="color:var(--ink);font-size:0.72rem;font-weight:700;">Store</a></td></tr>
+      <tr><td>Our Skin Haven</td><td class="days-strong">415</td><td>3</td><td>Body Sculpting / Cellulite</td><td>ourskinhaven.com</td><td><span class="tier-badge tier-winner">Winner</span></td><td><a href="https://www.facebook.com/ads/library/?id=1766826014218814" target="_blank" style="color:var(--ink);font-size:0.72rem;font-weight:700;">Ad</a> &nbsp; <a href="https://ourskinhaven.com" target="_blank" style="color:var(--ink);font-size:0.72rem;font-weight:700;">Store</a></td></tr>
+      <tr><td>Pedestrian Project</td><td class="days-strong">227</td><td>1</td><td>Natural Foot Care</td><td>pedestrianproject.com</td><td><span class="tier-badge tier-winner">Winner</span></td><td><a href="https://www.facebook.com/ads/library/?id=1415392663482785" target="_blank" style="color:var(--ink);font-size:0.72rem;font-weight:700;">Ad</a> &nbsp; <a href="https://pedestrianproject.com" target="_blank" style="color:var(--ink);font-size:0.72rem;font-weight:700;">Store</a></td></tr>
+      <tr><td>Julia Bennett</td><td class="days-strong">156</td><td>2</td><td>Influencer Funnel / Personal Care</td><td>nolara.shop</td><td><span class="tier-badge tier-winner">Winner</span></td><td><a href="https://www.facebook.com/ads/library/?id=1189448486592597" target="_blank" style="color:var(--ink);font-size:0.72rem;font-weight:700;">Ad</a> &nbsp; <a href="https://nolara.shop" target="_blank" style="color:var(--ink);font-size:0.72rem;font-weight:700;">Store</a></td></tr>
+      <tr><td>Kelly Moore Skin Expert</td><td class="days-strong">82</td><td>2</td><td>LED + EMS Anti-Aging</td><td>botaniqueparis.com</td><td><span class="tier-badge tier-scaling">Scaling</span></td><td><a href="https://www.facebook.com/ads/library/?id=1675255760564481" target="_blank" style="color:var(--ink);font-size:0.72rem;font-weight:700;">Ad</a> &nbsp; <a href="https://botaniqueparis.com" target="_blank" style="color:var(--ink);font-size:0.72rem;font-weight:700;">Store</a></td></tr>
+      <tr><td>Dermawell</td><td class="days-strong">76</td><td>5</td><td>LED Facial Sculptor</td><td>get.dermawellmd.com</td><td><span class="tier-badge tier-scaling">Scaling</span></td><td><a href="https://www.facebook.com/ads/library/?id=941234708795241" target="_blank" style="color:var(--ink);font-size:0.72rem;font-weight:700;">Ad</a> &nbsp; <a href="https://get.dermawellmd.com" target="_blank" style="color:var(--ink);font-size:0.72rem;font-weight:700;">Store</a></td></tr>
+      <tr><td>Ulike Global</td><td class="days-strong">53</td><td>3</td><td>IPL Hair Removal</td><td>ulike.com</td><td><span class="tier-badge tier-scaling">Scaling</span></td><td><a href="https://www.facebook.com/ads/library/?id=1437610508134707" target="_blank" style="color:var(--ink);font-size:0.72rem;font-weight:700;">Ad</a> &nbsp; <a href="https://ulike.com" target="_blank" style="color:var(--ink);font-size:0.72rem;font-weight:700;">Store</a></td></tr>
+      <tr><td>Natalie's Skincare Diary</td><td class="days-strong">43</td><td>2</td><td>Clinical At-Home Skincare</td><td>macrohealth.store</td><td><span class="tier-badge tier-scaling">Scaling</span></td><td><a href="https://www.facebook.com/ads/library/?id=3921053144692387" target="_blank" style="color:var(--ink);font-size:0.72rem;font-weight:700;">Ad</a> &nbsp; <a href="https://macrohealth.store" target="_blank" style="color:var(--ink);font-size:0.72rem;font-weight:700;">Store</a></td></tr>
+      <tr><td>iRESTORE Body</td><td class="days-strong">37</td><td>3</td><td>Red Light Therapy Panel</td><td>irestorelaser.com</td><td><span class="tier-badge tier-scaling">Scaling</span></td><td><a href="https://www.facebook.com/ads/library/?id=1694970108366397" target="_blank" style="color:var(--ink);font-size:0.72rem;font-weight:700;">Ad</a> &nbsp; <a href="https://irestorelaser.com" target="_blank" style="color:var(--ink);font-size:0.72rem;font-weight:700;">Store</a></td></tr>
+      <tr><td>JOVS</td><td class="days-strong">20</td><td>1</td><td>IPL Hair Removal</td><td>jovs.com</td><td><span class="tier-badge tier-watch">Watch</span></td><td><a href="https://www.facebook.com/ads/library/?id=1563269075366033" target="_blank" style="color:var(--ink);font-size:0.72rem;font-weight:700;">Ad</a> &nbsp; <a href="https://jovs.com" target="_blank" style="color:var(--ink);font-size:0.72rem;font-weight:700;">Store</a></td></tr>
+      <tr><td>Exclusive Beauty Club</td><td class="days-strong">19</td><td>2</td><td>Beauty Subscription</td><td>exclusivebeautyclub.com</td><td><span class="tier-badge tier-watch">Watch</span></td><td><a href="https://www.facebook.com/ads/library/?id=991103850439989" target="_blank" style="color:var(--ink);font-size:0.72rem;font-weight:700;">Ad</a> &nbsp; <a href="https://exclusivebeautyclub.com" target="_blank" style="color:var(--ink);font-size:0.72rem;font-weight:700;">Store</a></td></tr>
+      <tr><td>INIA</td><td class="days-strong">12</td><td>3</td><td>Wellness / Energy Device</td><td>theinia.com</td><td><span class="tier-badge tier-watch">Watch</span></td><td><a href="https://www.facebook.com/ads/library/?id=1990955745125029" target="_blank" style="color:var(--ink);font-size:0.72rem;font-weight:700;">Ad</a> &nbsp; <a href="https://theinia.com" target="_blank" style="color:var(--ink);font-size:0.72rem;font-weight:700;">Store</a></td></tr>
+      <tr><td>Life Changing Energy</td><td class="days-strong">10</td><td>1</td><td>Wellness</td><td>lifechangingenergy.com</td><td><span class="tier-badge tier-watch">Watch</span></td><td><a href="https://www.facebook.com/ads/library/?id=1037435472568162" target="_blank" style="color:var(--ink);font-size:0.72rem;font-weight:700;">Ad</a> &nbsp; <a href="https://lifechangingenergy.com" target="_blank" style="color:var(--ink);font-size:0.72rem;font-weight:700;">Store</a></td></tr>
+      <tr><td>ZAQ</td><td class="days-strong">5</td><td>2</td><td>Beauty Device</td><td>zaq.com</td><td><span class="tier-badge tier-watch">Watch</span></td><td><a href="https://www.facebook.com/ads/library/?id=1007306365486633" target="_blank" style="color:var(--ink);font-size:0.72rem;font-weight:700;">Ad</a> &nbsp; <a href="https://zaq.com" target="_blank" style="color:var(--ink);font-size:0.72rem;font-weight:700;">Store</a></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ── FOOTER ── -->
+<div class="report-footer">
+  <span>dailyalert · Ad Intelligence Report 01 · Skin Care &amp; Beauty Devices · July 13, 2026</span>
+  <span>Next: Product Research Report — LED Facial Device hero product</span>
+</div>
+
+</body>
+</html>

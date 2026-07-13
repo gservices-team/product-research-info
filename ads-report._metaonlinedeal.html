@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ad Library — Dropshipping Research Report</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink:    #16213e;
+    --paper:  #f9f8f6;
+    --rule:   #d4cfc8;
+    --muted:  #6b7280;
+    --white:  #ffffff;
+  }
+
+  body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    background: var(--paper);
+    color: var(--ink);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--ink);
+    color: var(--white);
+    padding: 40px 48px 32px;
+    border-bottom: 4px solid var(--ink);
+  }
+  .header-eyebrow {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    opacity: 0.55;
+    margin-bottom: 10px;
+  }
+  header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+    margin-bottom: 14px;
+  }
+  .header-meta {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-size: 12px;
+    opacity: 0.65;
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+  .header-meta span::before {
+    content: '';
+    display: inline-block;
+    width: 6px; height: 6px;
+    background: var(--white);
+    border-radius: 50%;
+    margin-right: 8px;
+    opacity: 0.5;
+    vertical-align: middle;
+  }
+
+  /* ── LAYOUT ── */
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 24px 60px;
+  }
+
+  /* ── SECTION HEADING ── */
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin: 44px 0 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--ink);
+  }
+  .section-head h2 {
+    font-size: 0.7rem;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+  .section-head .section-desc {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+
+  /* ── GRID ── */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+    gap: 16px;
+  }
+
+  /* ── CARD ── */
+  .card {
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-top: 3px solid var(--ink);
+    padding: 22px 24px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .page-name {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.3;
+  }
+  .page-sub {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-size: 0.72rem;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  .days-badge {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--ink);
+    text-align: right;
+    white-space: nowrap;
+    line-height: 1;
+  }
+  .days-badge span {
+    display: block;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  .product-label {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    border-left: 2px solid var(--ink);
+    padding-left: 8px;
+  }
+
+  .ad-copy {
+    font-size: 0.84rem;
+    color: #4b5563;
+    line-height: 1.6;
+    font-style: italic;
+    border-left: 2px solid var(--rule);
+    padding-left: 12px;
+  }
+
+  .card-stats {
+    display: flex;
+    gap: 0;
+    border: 1px solid var(--rule);
+    font-family: 'Segoe UI', Arial, sans-serif;
+  }
+  .stat {
+    flex: 1;
+    padding: 8px 10px;
+    text-align: center;
+    border-right: 1px solid var(--rule);
+  }
+  .stat:last-child { border-right: none; }
+  .stat .val {
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--ink);
+    display: block;
+  }
+  .stat .lbl {
+    font-size: 0.62rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    display: block;
+    margin-top: 1px;
+  }
+
+  .card-actions {
+    display: flex;
+    gap: 8px;
+  }
+  .btn {
+    flex: 1;
+    display: block;
+    padding: 9px 12px;
+    text-align: center;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: opacity .15s;
+  }
+  .btn:hover { opacity: 0.8; }
+  .btn-primary { background: var(--ink); color: var(--white); }
+  .btn-outline  { background: transparent; color: var(--ink); border: 1.5px solid var(--ink); }
+
+  /* ── SUMMARY TABLE ── */
+  .table-wrap { overflow-x: auto; margin-top: 8px; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-size: 0.8rem;
+    background: var(--white);
+    border: 1px solid var(--rule);
+  }
+  thead tr { background: var(--ink); color: var(--white); }
+  thead th {
+    padding: 11px 14px;
+    text-align: left;
+    font-weight: 700;
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  tbody tr { border-bottom: 1px solid var(--rule); }
+  tbody tr:nth-child(even) { background: #f4f3f0; }
+  tbody tr:hover { background: #eeecea; }
+  tbody td {
+    padding: 9px 14px;
+    vertical-align: middle;
+    color: var(--ink);
+  }
+  .td-days {
+    font-weight: 800;
+    font-size: 0.9rem;
+    text-align: center;
+  }
+  .td-center { text-align: center; }
+  .td-link {
+    font-weight: 700;
+    font-size: 0.75rem;
+    text-decoration: none;
+    color: var(--ink);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 4px 8px;
+    border: 1.5px solid var(--ink);
+    white-space: nowrap;
+    display: inline-block;
+  }
+  .td-link:hover { background: var(--ink); color: var(--white); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink);
+    color: var(--white);
+    text-align: center;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.5px;
+    opacity: 0.85;
+    padding: 20px;
+  }
+
+  @media (max-width: 600px) {
+    header { padding: 28px 20px 24px; }
+    header h1 { font-size: 1.4rem; }
+    .grid { grid-template-columns: 1fr; }
+    .container { padding: 24px 16px 40px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-eyebrow">Competitive Intelligence Report</div>
+  <h1>Facebook Ad Library<br>Dropshipping Product Research</h1>
+  <div class="header-meta">
+    <span>Store: metaonlinedeal.com</span>
+    <span>Market: United States</span>
+    <span>Keyword: "get yours today home gadget"</span>
+    <span>Sorted by total impressions</span>
+    <span>Report date: July 10, 2026</span>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- ══════════════════════════════════════════ -->
+  <div class="section-head">
+    <h2>Proven Winners</h2>
+    <div class="section-desc">Active 100+ days — sustained spend signals a profitable product</div>
+  </div>
+  <div class="grid">
+
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="page-name">The Vibit</div>
+          <div class="page-sub">thevibit.com</div>
+        </div>
+        <div class="days-badge">331<span>Days Live</span></div>
+      </div>
+      <div class="product-label">Foot Vibration Pain Relief Device</div>
+      <div class="ad-copy">"I often tell my patients with foot pain to use the Vibit every morning. And every time, I get that look. Wide eyes. Raised eyebrows..."</div>
+      <div class="card-stats">
+        <div class="stat"><span class="val">331</span><span class="lbl">Days Live</span></div>
+        <div class="stat"><span class="val">2</span><span class="lbl">Ad Variants</span></div>
+        <div class="stat"><span class="val">Active</span><span class="lbl">Status</span></div>
+      </div>
+      <div class="card-actions">
+        <a class="btn btn-primary" href="https://www.facebook.com/ads/library/?id=1905291150263226" target="_blank">View Ad</a>
+        <a class="btn btn-outline" href="https://thevibit.com" target="_blank">Visit Store</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="page-name">Wondeea Shop</div>
+          <div class="page-sub">wondeea.com</div>
+        </div>
+        <div class="days-badge">207<span>Days Live</span></div>
+      </div>
+      <div class="product-label">16x52 HD Night Vision Telescope</div>
+      <div class="ad-copy">"It allows you to see blemishes on people's faces from a distance of 8,000 metres. The 16X52 high-definition night vision..."</div>
+      <div class="card-stats">
+        <div class="stat"><span class="val">207</span><span class="lbl">Days Live</span></div>
+        <div class="stat"><span class="val">1</span><span class="lbl">Ad Variants</span></div>
+        <div class="stat"><span class="val">Active</span><span class="lbl">Status</span></div>
+      </div>
+      <div class="card-actions">
+        <a class="btn btn-primary" href="https://www.facebook.com/ads/library/?id=33288203077444862" target="_blank">View Ad</a>
+        <a class="btn btn-outline" href="https://wondeea.com" target="_blank">Visit Store</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="page-name">Hugterra</div>
+          <div class="page-sub">via Daniel L. Abrams MD — hugterra.com</div>
+        </div>
+        <div class="days-badge">172<span>Days Live</span></div>
+      </div>
+      <div class="product-label">Neck Pain Cervical Therapy Device</div>
+      <div class="ad-copy">"Why do Norwegian physiotherapists have a 91% success rate with neck pain? They don't just treat symptoms. They use 4 therapies at once to reverse the damage..."</div>
+      <div class="card-stats">
+        <div class="stat"><span class="val">172</span><span class="lbl">Days Live</span></div>
+        <div class="stat"><span class="val">1</span><span class="lbl">Ad Variants</span></div>
+        <div class="stat"><span class="val">Active</span><span class="lbl">Status</span></div>
+      </div>
+      <div class="card-actions">
+        <a class="btn btn-primary" href="https://www.facebook.com/ads/library/?id=913379301253220" target="_blank">View Ad</a>
+        <a class="btn btn-outline" href="https://hugterra.com" target="_blank">Visit Store</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="page-name">Nolara</div>
+          <div class="page-sub">via Julia Bennett — nolara.shop</div>
+        </div>
+        <div class="days-badge">153<span>Days Live</span></div>
+      </div>
+      <div class="product-label">UTI / Caregiver Health Product</div>
+      <div class="ad-copy">"The discharge nurse pulled me aside after my husband's third UTI hospitalization and said, 'I'm going to tell you something that's not in any of the paperwork...'"</div>
+      <div class="card-stats">
+        <div class="stat"><span class="val">153</span><span class="lbl">Days Live</span></div>
+        <div class="stat"><span class="val">1</span><span class="lbl">Ad Variants</span></div>
+        <div class="stat"><span class="val">Active</span><span class="lbl">Status</span></div>
+      </div>
+      <div class="card-actions">
+        <a class="btn btn-primary" href="https://www.facebook.com/ads/library/?id=878523241477551" target="_blank">View Ad</a>
+        <a class="btn btn-outline" href="https://nolara.shop" target="_blank">Visit Store</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="page-name">WABI BABY</div>
+          <div class="page-sub">wabibaby.com — 3 active ad variants</div>
+        </div>
+        <div class="days-badge">139<span>Days Live</span></div>
+      </div>
+      <div class="product-label">UV Baby Bottle &amp; Toy Sanitizer</div>
+      <div class="ad-copy">"Sanitize baby bottles, toys, electronics, and more, all in one place. With the push of a button, sanitize and dry your essentials in as little as 30 minutes..."</div>
+      <div class="card-stats">
+        <div class="stat"><span class="val">139</span><span class="lbl">Days Live</span></div>
+        <div class="stat"><span class="val">3</span><span class="lbl">Ad Variants</span></div>
+        <div class="stat"><span class="val">Active</span><span class="lbl">Status</span></div>
+      </div>
+      <div class="card-actions">
+        <a class="btn btn-primary" href="https://www.facebook.com/ads/library/?id=1432005414998488" target="_blank">View Ad</a>
+        <a class="btn btn-outline" href="https://www.wabibaby.com" target="_blank">Visit Store</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="page-name">Fujiiryoki USA</div>
+          <div class="page-sub">thevibit.com — second advertiser, same product</div>
+        </div>
+        <div class="days-badge">128<span>Days Live</span></div>
+      </div>
+      <div class="product-label">Foot Vibration Device</div>
+      <div class="ad-copy">"I often tell my patients with foot pain to use the Vibit every morning..." — identical creative to The Vibit page; two separate advertisers scaling the same product.</div>
+      <div class="card-stats">
+        <div class="stat"><span class="val">128</span><span class="lbl">Days Live</span></div>
+        <div class="stat"><span class="val">1</span><span class="lbl">Ad Variants</span></div>
+        <div class="stat"><span class="val">Active</span><span class="lbl">Status</span></div>
+      </div>
+      <div class="card-actions">
+        <a class="btn btn-primary" href="https://www.facebook.com/ads/library/?id=1522244399610012" target="_blank">View Ad</a>
+        <a class="btn btn-outline" href="https://thevibit.com" target="_blank">Visit Store</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ══════════════════════════════════════════ -->
+  <div class="section-head">
+    <h2>Actively Scaling</h2>
+    <div class="section-desc">Active 30–99 days — spend is working, product is being tested at scale</div>
+  </div>
+  <div class="grid">
+
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="page-name">Gadget Rentals</div>
+          <div class="page-sub">buyinfrabeam.com</div>
+        </div>
+        <div class="days-badge">71<span>Days Live</span></div>
+      </div>
+      <div class="product-label">Professional Red Light Therapy Device</div>
+      <div class="ad-copy">"This professional-grade red light therapy device — once limited to clinics and elite recovery centers — is now available for home use..."</div>
+      <div class="card-stats">
+        <div class="stat"><span class="val">71</span><span class="lbl">Days Live</span></div>
+        <div class="stat"><span class="val">1</span><span class="lbl">Ad Variants</span></div>
+        <div class="stat"><span class="val">Active</span><span class="lbl">Status</span></div>
+      </div>
+      <div class="card-actions">
+        <a class="btn btn-primary" href="https://www.facebook.com/ads/library/?id=1914520705904455" target="_blank">View Ad</a>
+        <a class="btn btn-outline" href="https://news.buyinfrabeam.com" target="_blank">Visit Store</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="page-name">RitFit</div>
+          <div class="page-sub">ritfitsports.com — 2 active ad variants</div>
+        </div>
+        <div class="days-badge">65<span>Days Live</span></div>
+      </div>
+      <div class="product-label">Ab &amp; Lower Back Workout Machine</div>
+      <div class="ad-copy">"I love it a lot, easy to use if you like working out lower back and abs. This is the best machine ever..."</div>
+      <div class="card-stats">
+        <div class="stat"><span class="val">65</span><span class="lbl">Days Live</span></div>
+        <div class="stat"><span class="val">2</span><span class="lbl">Ad Variants</span></div>
+        <div class="stat"><span class="val">Active</span><span class="lbl">Status</span></div>
+      </div>
+      <div class="card-actions">
+        <a class="btn btn-primary" href="https://www.facebook.com/ads/library/?id=961826139879894" target="_blank">View Ad</a>
+        <a class="btn btn-outline" href="https://ritfitsports.com" target="_blank">Visit Store</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="page-name">Bellabooty</div>
+          <div class="page-sub">bellabooty.com</div>
+        </div>
+        <div class="days-badge">60<span>Days Live</span></div>
+      </div>
+      <div class="product-label">Hip Thrust Gym Accessory</div>
+      <div class="ad-copy">"This works awesome. It has made my hip thrusts a little easier with dumbbells. Having a gym in the basement and limited space this little thing is perfect..."</div>
+      <div class="card-stats">
+        <div class="stat"><span class="val">60</span><span class="lbl">Days Live</span></div>
+        <div class="stat"><span class="val">1</span><span class="lbl">Ad Variants</span></div>
+        <div class="stat"><span class="val">Active</span><span class="lbl">Status</span></div>
+      </div>
+      <div class="card-actions">
+        <a class="btn btn-primary" href="https://www.facebook.com/ads/library/?id=1457554208908940" target="_blank">View Ad</a>
+        <a class="btn btn-outline" href="https://bellabooty.com" target="_blank">Visit Store</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="page-name">CGT Cottage Garden Threads</div>
+          <div class="page-sub">cottagegardenthreads.com.au</div>
+        </div>
+        <div class="days-badge">52<span>Days Live</span></div>
+      </div>
+      <div class="product-label">Tack It Easy — EPP Glue Basting Kit</div>
+      <div class="ad-copy">"Say goodbye to sticky fingers and awkward glue basting. Tack It Easy is a game changer for English Paper Piecing — more fun, less frustration..."</div>
+      <div class="card-stats">
+        <div class="stat"><span class="val">52</span><span class="lbl">Days Live</span></div>
+        <div class="stat"><span class="val">1</span><span class="lbl">Ad Variants</span></div>
+        <div class="stat"><span class="val">Active</span><span class="lbl">Status</span></div>
+      </div>
+      <div class="card-actions">
+        <a class="btn btn-primary" href="https://www.facebook.com/ads/library/?id=1285104357130030" target="_blank">View Ad</a>
+        <a class="btn btn-outline" href="https://www.cottagegardenthreads.com.au" target="_blank">Visit Store</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="page-name">Cozy Hoome</div>
+          <div class="page-sub">cozyhoome.com — 2 active ad variants</div>
+        </div>
+        <div class="days-badge">51<span>Days Live</span></div>
+      </div>
+      <div class="product-label">Solar Lantern + Phone Charger Combo</div>
+      <div class="ad-copy">"Ditch the clutter in your car kit. This powerful lantern and flashlight combo even powers your phone. Charges with the sun on your dashboard..."</div>
+      <div class="card-stats">
+        <div class="stat"><span class="val">51</span><span class="lbl">Days Live</span></div>
+        <div class="stat"><span class="val">2</span><span class="lbl">Ad Variants</span></div>
+        <div class="stat"><span class="val">Active</span><span class="lbl">Status</span></div>
+      </div>
+      <div class="card-actions">
+        <a class="btn btn-primary" href="https://www.facebook.com/ads/library/?id=988593343548917" target="_blank">View Ad</a>
+        <a class="btn btn-outline" href="https://cozyhoome.com" target="_blank">Visit Store</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="page-name">Revomadic</div>
+          <div class="page-sub">revomadic.com</div>
+        </div>
+        <div class="days-badge">44<span>Days Live</span></div>
+      </div>
+      <div class="product-label">Travel / Outdoor Gadget</div>
+      <div class="ad-copy">Ad creative uses a dynamic product template — a characteristic pattern of catalogue-based dropshipping operations.</div>
+      <div class="card-stats">
+        <div class="stat"><span class="val">44</span><span class="lbl">Days Live</span></div>
+        <div class="stat"><span class="val">1</span><span class="lbl">Ad Variants</span></div>
+        <div class="stat"><span class="val">Active</span><span class="lbl">Status</span></div>
+      </div>
+      <div class="card-actions">
+        <a class="btn btn-primary" href="https://www.facebook.com/ads/library/?id=1702465020951438" target="_blank">View Ad</a>
+        <a class="btn btn-outline" href="https://revomadic.com" target="_blank">Visit Store</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="page-name">Sculpiflex</div>
+          <div class="page-sub">via Christy Matis — sculpiflex.com</div>
+        </div>
+        <div class="days-badge">38<span>Days Live</span></div>
+      </div>
+      <div class="product-label">Body Sculpting / EMS Device</div>
+      <div class="ad-copy">"Sculpiflex is 'just a scam'? I'm Dr. Christy Matis. I created it. Here's the truth. I've been awake since 4 AM reading the comments..."</div>
+      <div class="card-stats">
+        <div class="stat"><span class="val">38</span><span class="lbl">Days Live</span></div>
+        <div class="stat"><span class="val">1</span><span class="lbl">Ad Variants</span></div>
+        <div class="stat"><span class="val">Active</span><span class="lbl">Status</span></div>
+      </div>
+      <div class="card-actions">
+        <a class="btn btn-primary" href="https://www.facebook.com/ads/library/?id=1886135368697347" target="_blank">View Ad</a>
+        <a class="btn btn-outline" href="https://sculpiflex.com" target="_blank">Visit Store</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="page-name">Camping Adventures</div>
+          <div class="page-sub">nuavastore.com</div>
+        </div>
+        <div class="days-badge">36<span>Days Live</span></div>
+      </div>
+      <div class="product-label">Camping / Outdoor Accessories</div>
+      <div class="ad-copy">Advertorial-style creative targeting outdoor enthusiasts, linking to a generic branded store — consistent with a dropshipping operation testing a new niche.</div>
+      <div class="card-stats">
+        <div class="stat"><span class="val">36</span><span class="lbl">Days Live</span></div>
+        <div class="stat"><span class="val">1</span><span class="lbl">Ad Variants</span></div>
+        <div class="stat"><span class="val">Active</span><span class="lbl">Status</span></div>
+      </div>
+      <div class="card-actions">
+        <a class="btn btn-primary" href="https://www.facebook.com/ads/library/?id=1677926679751162" target="_blank">View Ad</a>
+        <a class="btn btn-outline" href="https://nuavastore.com" target="_blank">Visit Store</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ══════════════════════════════════════════ -->
+  <div class="section-head">
+    <h2>Watch List</h2>
+    <div class="section-desc">Active under 30 days — too early to confirm, but multiple ad variants indicate testing with budget</div>
+  </div>
+  <div class="grid">
+
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="page-name">PestPro</div>
+          <div class="page-sub">pestpro.store — 2 active ad variants</div>
+        </div>
+        <div class="days-badge">28<span>Days Live</span></div>
+      </div>
+      <div class="product-label">Pest Control Home Device</div>
+      <div class="card-stats">
+        <div class="stat"><span class="val">28</span><span class="lbl">Days Live</span></div>
+        <div class="stat"><span class="val">2</span><span class="lbl">Ad Variants</span></div>
+        <div class="stat"><span class="val">Active</span><span class="lbl">Status</span></div>
+      </div>
+      <div class="card-actions">
+        <a class="btn btn-primary" href="https://www.facebook.com/ads/library/?id=1776576477052151" target="_blank">View Ad</a>
+        <a class="btn btn-outline" href="https://www.pestpro.store" target="_blank">Visit Store</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="page-name">Sakerplus</div>
+          <div class="page-sub">m.sakerplus.com — 2 active ad variants</div>
+        </div>
+        <div class="days-badge">26<span>Days Live</span></div>
+      </div>
+      <div class="product-label">DIY / Home Tool Gadget</div>
+      <div class="card-stats">
+        <div class="stat"><span class="val">26</span><span class="lbl">Days Live</span></div>
+        <div class="stat"><span class="val">2</span><span class="lbl">Ad Variants</span></div>
+        <div class="stat"><span class="val">Active</span><span class="lbl">Status</span></div>
+      </div>
+      <div class="card-actions">
+        <a class="btn btn-primary" href="https://www.facebook.com/ads/library/?id=27985951454340380" target="_blank">View Ad</a>
+        <a class="btn btn-outline" href="https://m.sakerplus.com" target="_blank">Visit Store</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="page-name">Koprez</div>
+          <div class="page-sub">offers.koprez.com</div>
+        </div>
+        <div class="days-badge">24<span>Days Live</span></div>
+      </div>
+      <div class="product-label">Compression / Pain Relief Accessory</div>
+      <div class="card-stats">
+        <div class="stat"><span class="val">24</span><span class="lbl">Days Live</span></div>
+        <div class="stat"><span class="val">1</span><span class="lbl">Ad Variants</span></div>
+        <div class="stat"><span class="val">Active</span><span class="lbl">Status</span></div>
+      </div>
+      <div class="card-actions">
+        <a class="btn btn-primary" href="https://www.facebook.com/ads/library/?id=1327769512206950" target="_blank">View Ad</a>
+        <a class="btn btn-outline" href="https://offers.koprez.com" target="_blank">Visit Store</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="page-name">PrimePath Solutions</div>
+          <div class="page-sub">tryorgatics.com — 2 active ad variants</div>
+        </div>
+        <div class="days-badge">19<span>Days Live</span></div>
+      </div>
+      <div class="product-label">Health Supplement / Wellness Product</div>
+      <div class="card-stats">
+        <div class="stat"><span class="val">19</span><span class="lbl">Days Live</span></div>
+        <div class="stat"><span class="val">2</span><span class="lbl">Ad Variants</span></div>
+        <div class="stat"><span class="val">Active</span><span class="lbl">Status</span></div>
+      </div>
+      <div class="card-actions">
+        <a class="btn btn-primary" href="https://www.facebook.com/ads/library/?id=2462454047584764" target="_blank">View Ad</a>
+        <a class="btn btn-outline" href="https://tryorgatics.com" target="_blank">Visit Store</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ══════════════════════════════════════════ -->
+  <div class="section-head">
+    <h2>Full Reference Table</h2>
+    <div class="section-desc">All 18 advertisers sorted by days running</div>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Page / Brand</th>
+          <th>Product</th>
+          <th style="text-align:center;">Days Live</th>
+          <th style="text-align:center;">Variants</th>
+          <th>CTA</th>
+          <th style="text-align:center;">Ad</th>
+          <th style="text-align:center;">Store</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>The Vibit</td><td>Foot Vibration Device</td><td class="td-days">331</td><td class="td-center">2</td><td>Shop Now</td><td class="td-center"><a class="td-link" href="https://www.facebook.com/ads/library/?id=1905291150263226" target="_blank">View</a></td><td class="td-center"><a class="td-link" href="https://thevibit.com" target="_blank">Open</a></td></tr>
+        <tr><td>2</td><td>Wondeea Shop</td><td>Night Vision Telescope</td><td class="td-days">207</td><td class="td-center">1</td><td>Shop Now</td><td class="td-center"><a class="td-link" href="https://www.facebook.com/ads/library/?id=33288203077444862" target="_blank">View</a></td><td class="td-center"><a class="td-link" href="https://wondeea.com" target="_blank">Open</a></td></tr>
+        <tr><td>3</td><td>Hugterra</td><td>Neck Therapy Device</td><td class="td-days">172</td><td class="td-center">1</td><td>Learn More</td><td class="td-center"><a class="td-link" href="https://www.facebook.com/ads/library/?id=913379301253220" target="_blank">View</a></td><td class="td-center"><a class="td-link" href="https://hugterra.com" target="_blank">Open</a></td></tr>
+        <tr><td>4</td><td>Nolara</td><td>Health / Caregiver Product</td><td class="td-days">153</td><td class="td-center">1</td><td>Shop Now</td><td class="td-center"><a class="td-link" href="https://www.facebook.com/ads/library/?id=878523241477551" target="_blank">View</a></td><td class="td-center"><a class="td-link" href="https://nolara.shop" target="_blank">Open</a></td></tr>
+        <tr><td>5</td><td>WABI BABY</td><td>UV Baby Bottle Sanitizer</td><td class="td-days">139</td><td class="td-center">3</td><td>Order Now</td><td class="td-center"><a class="td-link" href="https://www.facebook.com/ads/library/?id=1432005414998488" target="_blank">View</a></td><td class="td-center"><a class="td-link" href="https://www.wabibaby.com" target="_blank">Open</a></td></tr>
+        <tr><td>6</td><td>Fujiiryoki USA</td><td>Foot Vibration Device</td><td class="td-days">128</td><td class="td-center">1</td><td>Shop Now</td><td class="td-center"><a class="td-link" href="https://www.facebook.com/ads/library/?id=1522244399610012" target="_blank">View</a></td><td class="td-center"><a class="td-link" href="https://thevibit.com" target="_blank">Open</a></td></tr>
+        <tr><td>7</td><td>Gadget Rentals</td><td>Red Light Therapy Device</td><td class="td-days">71</td><td class="td-center">1</td><td>Get Quote</td><td class="td-center"><a class="td-link" href="https://www.facebook.com/ads/library/?id=1914520705904455" target="_blank">View</a></td><td class="td-center"><a class="td-link" href="https://news.buyinfrabeam.com" target="_blank">Open</a></td></tr>
+        <tr><td>8</td><td>RitFit</td><td>Ab / Back Workout Machine</td><td class="td-days">65</td><td class="td-center">2</td><td>Learn More</td><td class="td-center"><a class="td-link" href="https://www.facebook.com/ads/library/?id=961826139879894" target="_blank">View</a></td><td class="td-center"><a class="td-link" href="https://ritfitsports.com" target="_blank">Open</a></td></tr>
+        <tr><td>9</td><td>Bellabooty</td><td>Hip Thrust Gym Accessory</td><td class="td-days">60</td><td class="td-center">1</td><td>Order Now</td><td class="td-center"><a class="td-link" href="https://www.facebook.com/ads/library/?id=1457554208908940" target="_blank">View</a></td><td class="td-center"><a class="td-link" href="https://bellabooty.com" target="_blank">Open</a></td></tr>
+        <tr><td>10</td><td>CGT Cottage Garden</td><td>Glue Basting Kit</td><td class="td-days">52</td><td class="td-center">1</td><td>Shop Now</td><td class="td-center"><a class="td-link" href="https://www.facebook.com/ads/library/?id=1285104357130030" target="_blank">View</a></td><td class="td-center"><a class="td-link" href="https://www.cottagegardenthreads.com.au" target="_blank">Open</a></td></tr>
+        <tr><td>11</td><td>Cozy Hoome</td><td>Solar Lantern + Charger</td><td class="td-days">51</td><td class="td-center">2</td><td>Shop Now</td><td class="td-center"><a class="td-link" href="https://www.facebook.com/ads/library/?id=988593343548917" target="_blank">View</a></td><td class="td-center"><a class="td-link" href="https://cozyhoome.com" target="_blank">Open</a></td></tr>
+        <tr><td>12</td><td>Revomadic</td><td>Travel / Outdoor Gadget</td><td class="td-days">44</td><td class="td-center">1</td><td>Learn More</td><td class="td-center"><a class="td-link" href="https://www.facebook.com/ads/library/?id=1702465020951438" target="_blank">View</a></td><td class="td-center"><a class="td-link" href="https://revomadic.com" target="_blank">Open</a></td></tr>
+        <tr><td>13</td><td>Sculpiflex</td><td>Body Sculpting Device</td><td class="td-days">38</td><td class="td-center">1</td><td>Learn More</td><td class="td-center"><a class="td-link" href="https://www.facebook.com/ads/library/?id=1886135368697347" target="_blank">View</a></td><td class="td-center"><a class="td-link" href="https://sculpiflex.com" target="_blank">Open</a></td></tr>
+        <tr><td>14</td><td>Camping Adventures</td><td>Camping / Outdoor Gadget</td><td class="td-days">36</td><td class="td-center">1</td><td>Learn More</td><td class="td-center"><a class="td-link" href="https://www.facebook.com/ads/library/?id=1677926679751162" target="_blank">View</a></td><td class="td-center"><a class="td-link" href="https://nuavastore.com" target="_blank">Open</a></td></tr>
+        <tr><td>15</td><td>PestPro</td><td>Pest Control Gadget</td><td class="td-days">28</td><td class="td-center">2</td><td>Learn More</td><td class="td-center"><a class="td-link" href="https://www.facebook.com/ads/library/?id=1776576477052151" target="_blank">View</a></td><td class="td-center"><a class="td-link" href="https://www.pestpro.store" target="_blank">Open</a></td></tr>
+        <tr><td>16</td><td>Sakerplus</td><td>DIY / Home Tool</td><td class="td-days">26</td><td class="td-center">2</td><td>Shop Now</td><td class="td-center"><a class="td-link" href="https://www.facebook.com/ads/library/?id=27985951454340380" target="_blank">View</a></td><td class="td-center"><a class="td-link" href="https://m.sakerplus.com" target="_blank">Open</a></td></tr>
+        <tr><td>17</td><td>Koprez</td><td>Compression Device</td><td class="td-days">24</td><td class="td-center">1</td><td>Shop Now</td><td class="td-center"><a class="td-link" href="https://www.facebook.com/ads/library/?id=1327769512206950" target="_blank">View</a></td><td class="td-center"><a class="td-link" href="https://offers.koprez.com" target="_blank">Open</a></td></tr>
+        <tr><td>18</td><td>PrimePath Solutions</td><td>Health Supplement</td><td class="td-days">19</td><td class="td-center">2</td><td>Learn More</td><td class="td-center"><a class="td-link" href="https://www.facebook.com/ads/library/?id=2462454047584764" target="_blank">View</a></td><td class="td-center"><a class="td-link" href="https://tryorgatics.com" target="_blank">Open</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<footer>
+  Generated July 10, 2026 &nbsp;&nbsp;|&nbsp;&nbsp; Source: Facebook Ad Library — United States, active ads, keyword "get yours today home gadget", sorted by total impressions &nbsp;&nbsp;|&nbsp;&nbsp; For: metaonlinedeal.com
+</footer>
+
+</body>
+</html>

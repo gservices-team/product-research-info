@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>dailyalert — Weight Loss &amp; Health Devices · Ad Intelligence Report 01</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --ink:   #1a4d2e;
+    --paper: #f4faf6;
+    --rule:  #b8d4c0;
+    --muted: #4a7a5a;
+    --light: #e4f2e8;
+    --white: #ffffff;
+  }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--paper); color: var(--ink); font-size: 14px; line-height: 1.6; }
+
+  /* ── HEADER ── */
+  .report-header { background: var(--ink); color: var(--white); padding: 40px 48px 36px; }
+  .report-header .store-tag { font-size: 0.65rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; opacity: 0.5; margin-bottom: 8px; }
+  .report-header h1 { font-family: 'Georgia', 'Times New Roman', serif; font-size: 1.9rem; font-weight: 700; line-height: 1.2; letter-spacing: -0.5px; margin-bottom: 10px; }
+  .report-header .meta { font-size: 0.78rem; opacity: 0.55; }
+  .report-header .meta span { margin-right: 20px; }
+
+  /* ── AT A GLANCE ── */
+  .glance-bar { background: var(--white); border-bottom: 2px solid var(--ink); display: flex; }
+  .glance-item { flex: 1; padding: 20px 24px; border-right: 1px solid var(--rule); text-align: center; }
+  .glance-item:last-child { border-right: none; }
+  .glance-val { font-family: 'Georgia', serif; font-size: 2rem; font-weight: 700; color: var(--ink); display: block; line-height: 1; }
+  .glance-lbl { font-size: 0.65rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); display: block; margin-top: 5px; }
+
+  /* ── INTELLIGENCE BLOCK ── */
+  .intel-block { padding: 36px 48px; background: var(--light); border-bottom: 1px solid var(--rule); }
+  .intel-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 20px; }
+  .intel-card { background: var(--white); border-top: 3px solid var(--ink); padding: 18px 20px; }
+  .intel-card .ic-label { font-size: 0.62rem; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+  .intel-card .ic-title { font-family: 'Georgia', serif; font-size: 0.95rem; font-weight: 700; color: var(--ink); margin-bottom: 6px; }
+  .intel-card .ic-body { font-size: 0.78rem; color: var(--muted); line-height: 1.55; }
+
+  /* ── SECTION ── */
+  .section-wrap { padding: 40px 48px 0; }
+  .section-head { border-bottom: 2px solid var(--ink); padding-bottom: 10px; margin-bottom: 24px; display: flex; align-items: baseline; justify-content: space-between; }
+  .section-head h2 { font-family: 'Georgia', serif; font-size: 1.25rem; font-weight: 700; color: var(--ink); }
+  .section-head .s-count { font-size: 0.68rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
+  .section-desc { font-size: 0.82rem; color: var(--muted); margin-bottom: 24px; line-height: 1.5; }
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; padding-bottom: 40px; }
+
+  /* ── AD CARD ── */
+  .ad-card { background: var(--white); border: 1px solid var(--rule); border-top: 3px solid var(--ink); }
+  .ad-card-head { padding: 14px 16px 10px; border-bottom: 1px solid var(--rule); }
+  .ad-card-name { font-size: 0.95rem; font-weight: 700; color: var(--ink); margin-bottom: 2px; }
+  .ad-card-domain { font-size: 0.72rem; color: var(--muted); }
+  .ad-card-body { padding: 12px 16px; }
+  .ad-card-row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
+  .ad-card-days { font-family: 'Georgia', serif; font-size: 1.5rem; font-weight: 700; color: var(--ink); line-height: 1; }
+  .ad-card-days-lbl { font-size: 0.62rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--muted); margin-top: 1px; }
+  .ad-card-variants { font-size: 0.72rem; color: var(--muted); background: var(--light); padding: 2px 8px; }
+  .ad-card-niche { font-size: 0.68rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--ink); background: var(--light); padding: 3px 8px; display: inline-block; margin-bottom: 10px; }
+  .ad-card-hook { font-size: 0.78rem; color: #374151; line-height: 1.55; font-style: italic; margin-bottom: 12px; border-left: 2px solid var(--rule); padding-left: 10px; }
+  .ad-card-btns { display: flex; gap: 8px; margin-top: 10px; }
+  .btn-primary { background: var(--ink); color: var(--white); border: none; padding: 7px 14px; font-size: 0.7rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; display: inline-block; }
+  .btn-secondary { background: transparent; color: var(--ink); border: 1.5px solid var(--ink); padding: 7px 14px; font-size: 0.7rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; display: inline-block; }
+  .btn-primary:hover { opacity: 0.85; }
+  .btn-secondary:hover { background: var(--ink); color: var(--white); }
+
+  /* ── FULL TABLE ── */
+  .table-wrap { padding: 0 48px 48px; }
+  .full-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; background: var(--white); border: 1px solid var(--rule); }
+  .full-table thead tr { background: var(--ink); color: var(--white); }
+  .full-table th { padding: 10px 12px; text-align: left; font-size: 0.62rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
+  .full-table td { padding: 9px 12px; border-bottom: 1px solid var(--rule); vertical-align: middle; }
+  .full-table tr:last-child td { border-bottom: none; }
+  .full-table tr:nth-child(even) td { background: var(--light); }
+  .days-strong { font-weight: 700; font-family: 'Georgia', serif; font-size: 0.92rem; }
+  .tier-badge { font-size: 0.6rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 2px 7px; }
+  .tier-winner  { background: var(--ink); color: var(--white); }
+  .tier-scaling { background: var(--light); color: var(--ink); border: 1px solid var(--rule); }
+  .tier-watch   { background: transparent; color: var(--muted); border: 1px solid var(--rule); }
+
+  /* ── FOOTER ── */
+  .report-footer { background: var(--ink); color: var(--white); padding: 24px 48px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+  .report-footer span { opacity: 0.5; font-size: 0.75rem; }
+
+  @media (max-width: 720px) {
+    .report-header, .intel-block, .section-wrap, .table-wrap { padding-left: 20px; padding-right: 20px; }
+    .intel-grid { grid-template-columns: 1fr; }
+    .card-grid { grid-template-columns: 1fr; }
+    .glance-bar { flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<div class="report-header">
+  <div class="store-tag">dailyalert · Ad Intelligence Report — Weight Loss &amp; Health Devices</div>
+  <h1>Weight Loss, Body Sculpting<br>&amp; Health Recovery Devices</h1>
+  <div class="meta">
+    <span>Category: Health &amp; Wellness &gt; Weight Management &gt; Body Sculpting &gt; Recovery Devices</span>
+    <span>Generated: July 13, 2026</span>
+    <span>Source: Facebook Ad Library</span>
+  </div>
+</div>
+
+<!-- ── AT A GLANCE ── -->
+<div class="glance-bar">
+  <div class="glance-item"><span class="glance-val">12</span><span class="glance-lbl">Active Advertisers</span></div>
+  <div class="glance-item"><span class="glance-val">6</span><span class="glance-lbl">Running 100+ Days</span></div>
+  <div class="glance-item"><span class="glance-val">2</span><span class="glance-lbl">Scaling 30–99 Days</span></div>
+  <div class="glance-item"><span class="glance-val">279</span><span class="glance-lbl">Longest Running (Days)</span></div>
+  <div class="glance-item"><span class="glance-val">Body Sculpting</span><span class="glance-lbl">Dominant Sub-Niche</span></div>
+</div>
+
+<!-- ── INTELLIGENCE BLOCK ── -->
+<div class="intel-block">
+  <div style="font-size:0.65rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:6px;">Category Intelligence</div>
+  <div style="font-family:'Georgia',serif;font-size:1.2rem;font-weight:700;color:var(--ink);">This is not a weight loss niche — it is a health device niche with a pain-point funnel</div>
+  <div class="intel-grid">
+    <div class="intel-card">
+      <div class="ic-label">Signal 01 — Strongest Opportunity</div>
+      <div class="ic-title">At-Home Body Sculpting Devices</div>
+      <div class="ic-body">Christy Matis / Sculpiflex has run for 255 days selling a dynamic cupping + body sculpting device. High AOV ($100–250), strong visual before/after creative, and no prescription required. Clear dropship candidate — search "body sculpting cavitation device" on Zendrop.</div>
+    </div>
+    <div class="intel-card">
+      <div class="ic-label">Signal 02 — Chronic Condition Funnels</div>
+      <div class="ic-title">Community Page → Product Store Pattern</div>
+      <div class="ic-body">StepNura (185d), Parkinson Recovery Community (103d), and Lymphedema Support Group (26d) all use an empathetic community/support Facebook page to funnel sufferers into a health device store. The page looks like a support group — the product is the solution. High-converting pattern.</div>
+    </div>
+    <div class="intel-card">
+      <div class="ic-label">Signal 03 — Gut Health Emerging</div>
+      <div class="ic-title">Digestive Health / Probiotic Products</div>
+      <div class="ic-body">The Healthy Gut Journal (38d, get.lanural.com) uses an intensely personal story hook about chronic constipation. Gut health supplements are high-margin, repurchasable, and well-stocked on Zendrop. Strong second SKU candidate alongside a primary device offer.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- SECTION 1: PROVEN WINNERS                                 -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="section-wrap">
+  <div class="section-head">
+    <h2>Proven Winners — 100+ Days Running</h2>
+    <span class="s-count">6 advertisers</span>
+  </div>
+  <p class="section-desc">Every page here has maintained paid spend for over 100 consecutive days — a reliable proxy for profitability. Study the ad angle, the store structure, and the product before entering this niche.</p>
+  <div class="card-grid">
+
+    <!-- Christy Matis / Sculpiflex -->
+    <div class="ad-card">
+      <div class="ad-card-head">
+        <div class="ad-card-name">Christy Matis</div>
+        <div class="ad-card-domain">quiz.sculpiflex.com</div>
+      </div>
+      <div class="ad-card-body">
+        <div class="ad-card-row">
+          <div><div class="ad-card-days">255</div><div class="ad-card-days-lbl">Days Running</div></div>
+          <span class="ad-card-variants">1 ad variant</span>
+        </div>
+        <div class="ad-card-niche">Body Sculpting · Dynamic Cupping Device</div>
+        <div class="ad-card-hook">"This weird new device is going viral — rated the #1 body sculptor for 2025. Sculpts body with Dynamic Cupping, tightens figure..."</div>
+        <div class="ad-card-btns">
+          <a class="btn-primary" href="https://www.facebook.com/ads/library/?id=1527614301475632" target="_blank">View Ad</a>
+          <a class="btn-secondary" href="https://sculpiflex.com" target="_blank">Visit Store</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- StepNura -->
+    <div class="ad-card">
+      <div class="ad-card-head">
+        <div class="ad-card-name">StepNura</div>
+        <div class="ad-card-domain">stepnura.com</div>
+      </div>
+      <div class="ad-card-body">
+        <div class="ad-card-row">
+          <div><div class="ad-card-days">185</div><div class="ad-card-days-lbl">Days Running</div></div>
+          <span class="ad-card-variants">1 ad variant</span>
+        </div>
+        <div class="ad-card-niche">Stroke Recovery · Foot Drop / Nerve Device</div>
+        <div class="ad-card-hook">"Your foot drags when you walk? That's nerve damage from stroke. You hold onto walls just to move across the room? That's nerve damage from stroke."</div>
+        <div class="ad-card-btns">
+          <a class="btn-primary" href="https://www.facebook.com/ads/library/?id=2290666041430202" target="_blank">View Ad</a>
+          <a class="btn-secondary" href="https://stepnura.com" target="_blank">Visit Store</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Corecareshop -->
+    <div class="ad-card">
+      <div class="ad-card-head">
+        <div class="ad-card-name">Corecareshop</div>
+        <div class="ad-card-domain">corecareshop.com</div>
+      </div>
+      <div class="ad-card-body">
+        <div class="ad-card-row">
+          <div><div class="ad-card-days">170</div><div class="ad-card-days-lbl">Days Running</div></div>
+          <span class="ad-card-variants">1 ad variant</span>
+        </div>
+        <div class="ad-card-niche">Bone Health · Osteoporosis Device</div>
+        <div class="ad-card-hook">"Still terrified looking at your DEXA scan results? If you have osteoporosis — fear of moving because you're afraid something might break, lost 2+ inches in height..."</div>
+        <div class="ad-card-btns">
+          <a class="btn-primary" href="https://www.facebook.com/ads/library/?id=1219662212917206" target="_blank">View Ad</a>
+          <a class="btn-secondary" href="https://corecareshop.com" target="_blank">Visit Store</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contour Light -->
+    <div class="ad-card">
+      <div class="ad-card-head">
+        <div class="ad-card-name">Contour Light</div>
+        <div class="ad-card-domain">fb.me (B2B lead)</div>
+      </div>
+      <div class="ad-card-body">
+        <div class="ad-card-row">
+          <div><div class="ad-card-days">124</div><div class="ad-card-days-lbl">Days Running</div></div>
+          <span class="ad-card-variants">1 ad variant</span>
+        </div>
+        <div class="ad-card-niche">B2B · LED Body Contouring for Clinics</div>
+        <div class="ad-card-hook">"Clinic Owners &amp; Med Spas — What if you could add a high-demand body contouring treatment that helps patients lose inches without surgery, downtime, or injections?"</div>
+        <div class="ad-card-btns">
+          <a class="btn-primary" href="https://www.facebook.com/ads/library/?id=2409722602789546" target="_blank">View Ad</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Parkinson Recovery Community -->
+    <div class="ad-card">
+      <div class="ad-card-head">
+        <div class="ad-card-name">Parkinson Recovery Community</div>
+        <div class="ad-card-domain">restural.com</div>
+      </div>
+      <div class="ad-card-body">
+        <div class="ad-card-row">
+          <div><div class="ad-card-days">103</div><div class="ad-card-days-lbl">Days Running</div></div>
+          <span class="ad-card-variants">1 ad variant</span>
+        </div>
+        <div class="ad-card-niche">Chronic Condition Funnel · Mobility Device</div>
+        <div class="ad-card-hook">"If you've been watching someone you love (post-Parkinson's) freeze mid-step, fall in doorways, and slowly shrink their entire life down to the rooms they feel safe shuffling between..."</div>
+        <div class="ad-card-btns">
+          <a class="btn-primary" href="https://www.facebook.com/ads/library/?id=1889066088474281" target="_blank">View Ad</a>
+          <a class="btn-secondary" href="https://restural.com" target="_blank">Visit Store</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- The Finance Hospital (off-niche note) -->
+    <div class="ad-card" style="border-top-color:#b0b8c1;">
+      <div class="ad-card-head">
+        <div class="ad-card-name">The Finance Hospital <span style="font-size:0.65rem;font-weight:400;color:var(--muted);">— off-niche</span></div>
+        <div class="ad-card-domain">instagram.com (lead capture)</div>
+      </div>
+      <div class="ad-card-body">
+        <div class="ad-card-row">
+          <div><div class="ad-card-days" style="color:var(--muted);">279</div><div class="ad-card-days-lbl">Days Running</div></div>
+          <span class="ad-card-variants">1 ad variant</span>
+        </div>
+        <div class="ad-card-niche" style="background:#f0f0f0;color:var(--muted);">Finance · Off-Niche Capture</div>
+        <div class="ad-card-hook">"When I started out as a PA, I followed the same playbook — save, budget, invest in index funds, and wait. That plan works if you're patient enough to give it 40 years..."</div>
+        <div style="font-size:0.72rem;color:var(--muted);margin-top:8px;">Captured by the search keyword — not a weight loss advertiser. Disregard for product research.</div>
+        <div class="ad-card-btns">
+          <a class="btn-primary" style="background:var(--muted);" href="https://www.facebook.com/ads/library/?id=1568143654550967" target="_blank">View Ad</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- SECTION 2: ACTIVELY SCALING                               -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="section-wrap" style="padding-top:0;">
+  <div class="section-head">
+    <h2>Actively Scaling — 30 to 99 Days</h2>
+    <span class="s-count">2 advertisers</span>
+  </div>
+  <p class="section-desc">Fewer entrants in this tier than usual — suggesting the niche has high barriers or is less crowded. Both have passed the testing threshold and are scaling profitable offers.</p>
+  <div class="card-grid">
+
+    <!-- Not Done Yet / Stryde -->
+    <div class="ad-card">
+      <div class="ad-card-head">
+        <div class="ad-card-name">Not Done Yet</div>
+        <div class="ad-card-domain">getstryde.co</div>
+      </div>
+      <div class="ad-card-body">
+        <div class="ad-card-row">
+          <div><div class="ad-card-days">51</div><div class="ad-card-days-lbl">Days Running</div></div>
+          <span class="ad-card-variants">1 ad variant</span>
+        </div>
+        <div class="ad-card-niche">Knee Pain · Joint Recovery Device</div>
+        <div class="ad-card-hook">"This red dot is the entire reason your knee hurts. And nobody's ever showed it to you. I'm going to show you something in the next 90 seconds that every orthopedic surgeon in America..."</div>
+        <div class="ad-card-btns">
+          <a class="btn-primary" href="https://www.facebook.com/ads/library/?id=1760665508252728" target="_blank">View Ad</a>
+          <a class="btn-secondary" href="https://getstryde.co" target="_blank">Visit Store</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- The Healthy Gut Journal -->
+    <div class="ad-card">
+      <div class="ad-card-head">
+        <div class="ad-card-name">The Healthy Gut Journal</div>
+        <div class="ad-card-domain">get.lanural.com</div>
+      </div>
+      <div class="ad-card-body">
+        <div class="ad-card-row">
+          <div><div class="ad-card-days">38</div><div class="ad-card-days-lbl">Days Running</div></div>
+          <span class="ad-card-variants">1 ad variant</span>
+        </div>
+        <div class="ad-card-niche">Gut Health · Digestive Supplement</div>
+        <div class="ad-card-hook">"I hadn't pooped in 14 days. I'd been on Miralax every morning for 4 years. Senna at night for the last 3. I had been to 4 gastroenterologists, tried 31 different products..."</div>
+        <div class="ad-card-btns">
+          <a class="btn-primary" href="https://www.facebook.com/ads/library/?id=1751749069537130" target="_blank">View Ad</a>
+          <a class="btn-secondary" href="https://get.lanural.com" target="_blank">Visit Store</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- SECTION 3: WATCH LIST                                     -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="section-wrap" style="padding-top:0;">
+  <div class="section-head">
+    <h2>Watch List — Under 30 Days</h2>
+    <span class="s-count">4 advertisers</span>
+  </div>
+  <p class="section-desc">New entrants still in the testing phase. Check back in 2–3 weeks. If still active at 30+ days, they have a profitable offer worth studying.</p>
+  <div class="card-grid">
+
+    <div class="ad-card" style="border-top-color:var(--muted);">
+      <div class="ad-card-head"><div class="ad-card-name">Lymphedema Support Group</div><div class="ad-card-domain">ornexis.com</div></div>
+      <div class="ad-card-body">
+        <div class="ad-card-row"><div><div class="ad-card-days" style="color:var(--muted);">26</div><div class="ad-card-days-lbl">Days Running</div></div><span class="ad-card-variants">1 ad variant</span></div>
+        <div class="ad-card-niche">Chronic Condition Funnel · Lymphedema Device</div>
+        <div class="ad-card-hook">Community page funnel — uses support group positioning to drive traffic to ornexis.com. Same pattern as Parkinson Recovery Community (103 days). Monitor closely.</div>
+        <div class="ad-card-btns"><a class="btn-primary" href="https://www.facebook.com/ads/library/?id=1688621279018702" target="_blank">View Ad</a><a class="btn-secondary" href="https://ornexis.com" target="_blank">Visit Store</a></div>
+      </div>
+    </div>
+
+    <div class="ad-card" style="border-top-color:var(--muted);">
+      <div class="ad-card-head"><div class="ad-card-name">Koprez</div><div class="ad-card-domain">offers.koprez.com</div></div>
+      <div class="ad-card-body">
+        <div class="ad-card-row"><div><div class="ad-card-days" style="color:var(--muted);">26</div><div class="ad-card-days-lbl">Days Running</div></div><span class="ad-card-variants">1 ad variant</span></div>
+        <div class="ad-card-niche">Joint Support · Knee / Compression Brace</div>
+        <div class="ad-card-btns"><a class="btn-primary" href="https://www.facebook.com/ads/library/?id=27295751786749265" target="_blank">View Ad</a><a class="btn-secondary" href="https://koprez.com" target="_blank">Visit Store</a></div>
+      </div>
+    </div>
+
+    <div class="ad-card" style="border-top-color:var(--muted);">
+      <div class="ad-card-head"><div class="ad-card-name">Dr. Riley Porter</div><div class="ad-card-domain">sale.mydermadream.com</div></div>
+      <div class="ad-card-body">
+        <div class="ad-card-row"><div><div class="ad-card-days" style="color:var(--muted);">24</div><div class="ad-card-days-lbl">Days Running</div></div><span class="ad-card-variants">1 ad variant</span></div>
+        <div class="ad-card-niche">Skin / Derma · Doctor Persona Funnel</div>
+        <div class="ad-card-btns"><a class="btn-primary" href="https://www.facebook.com/ads/library/?id=27223020697306597" target="_blank">View Ad</a><a class="btn-secondary" href="https://mydermadream.com" target="_blank">Visit Store</a></div>
+      </div>
+    </div>
+
+    <div class="ad-card" style="border-top-color:var(--muted);">
+      <div class="ad-card-head"><div class="ad-card-name">Fall Prevention Tips</div><div class="ad-card-domain">offers.hike-footwear.com</div></div>
+      <div class="ad-card-body">
+        <div class="ad-card-row"><div><div class="ad-card-days" style="color:var(--muted);">20</div><div class="ad-card-days-lbl">Days Running</div></div><span class="ad-card-variants">1 ad variant</span></div>
+        <div class="ad-card-niche">Senior Mobility · Anti-Fall Footwear</div>
+        <div class="ad-card-btns"><a class="btn-primary" href="https://www.facebook.com/ads/library/?id=995438943231001" target="_blank">View Ad</a><a class="btn-secondary" href="https://hike-footwear.com" target="_blank">Visit Store</a></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- FULL REFERENCE TABLE                                      -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="table-wrap">
+  <div style="border-bottom:2px solid var(--ink);padding-bottom:10px;margin-bottom:20px;display:flex;align-items:baseline;justify-content:space-between;">
+    <div style="font-family:'Georgia',serif;font-size:1.25rem;font-weight:700;color:var(--ink);">Full Reference Table</div>
+    <div style="font-size:0.68rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);">12 advertisers · all tiers</div>
+  </div>
+  <table class="full-table">
+    <thead>
+      <tr>
+        <th>Advertiser</th>
+        <th>Days</th>
+        <th>Ads</th>
+        <th>Niche / Product Type</th>
+        <th>Store Domain</th>
+        <th>Tier</th>
+        <th>Links</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>The Finance Hospital</td><td class="days-strong">279</td><td>1</td><td>Finance — Off-Niche</td><td>instagram.com</td><td><span class="tier-badge" style="background:#ccc;color:#555;">Off-Niche</span></td><td><a href="https://www.facebook.com/ads/library/?id=1568143654550967" target="_blank" style="color:var(--ink);font-size:0.72rem;font-weight:700;">Ad</a></td></tr>
+      <tr><td>Christy Matis</td><td class="days-strong">255</td><td>1</td><td>Body Sculpting / Cupping Device</td><td>sculpiflex.com</td><td><span class="tier-badge tier-winner">Winner</span></td><td><a href="https://www.facebook.com/ads/library/?id=1527614301475632" target="_blank" style="color:var(--ink);font-size:0.72rem;font-weight:700;">Ad</a> &nbsp; <a href="https://sculpiflex.com" target="_blank" style="color:var(--ink);font-size:0.72rem;font-weight:700;">Store</a></td></tr>
+      <tr><td>StepNura</td><td class="days-strong">185</td><td>1</td><td>Stroke Recovery / Foot Drop</td><td>stepnura.com</td><td><span class="tier-badge tier-winner">Winner</span></td><td><a href="https://www.facebook.com/ads/library/?id=2290666041430202" target="_blank" style="color:var(--ink);font-size:0.72rem;font-weight:700;">Ad</a> &nbsp; <a href="https://stepnura.com" target="_blank" style="color:var(--ink);font-size:0.72rem;font-weight:700;">Store</a></td></tr>
+      <tr><td>Corecareshop</td><td class="days-strong">170</td><td>1</td><td>Osteoporosis / Bone Health</td><td>corecareshop.com</td><td><span class="tier-badge tier-winner">Winner</span></td><td><a href="https://www.facebook.com/ads/library/?id=1219662212917206" target="_blank" style="color:var(--ink);font-size:0.72rem;font-weight:700;">Ad</a> &nbsp; <a href="https://corecareshop.com" target="_blank" style="color:var(--ink);font-size:0.72rem;font-weight:700;">Store</a></td></tr>
+      <tr><td>Contour Light</td><td class="days-strong">124</td><td>1</td><td>B2B LED Body Contouring</td><td>fb.me</td><td><span class="tier-badge tier-winner">Winner</span></td><td><a href="https://www.facebook.com/ads/library/?id=2409722602789546" target="_blank" style="color:var(--ink);font-size:0.72rem;font-weight:700;">Ad</a></td></tr>
+      <tr><td>Parkinson Recovery Community</td><td class="days-strong">103</td><td>1</td><td>Parkinson's / Mobility Device</td><td>restural.com</td><td><span class="tier-badge tier-winner">Winner</span></td><td><a href="https://www.facebook.com/ads/library/?id=1889066088474281" target="_blank" style="color:var(--ink);font-size:0.72rem;font-weight:700;">Ad</a> &nbsp; <a href="https://restural.com" target="_blank" style="color:var(--ink);font-size:0.72rem;font-weight:700;">Store</a></td></tr>
+      <tr><td>Not Done Yet</td><td class="days-strong">51</td><td>1</td><td>Knee Pain / Joint Recovery</td><td>getstryde.co</td><td><span class="tier-badge tier-scaling">Scaling</span></td><td><a href="https://www.facebook.com/ads/library/?id=1760665508252728" target="_blank" style="color:var(--ink);font-size:0.72rem;font-weight:700;">Ad</a> &nbsp; <a href="https://getstryde.co" target="_blank" style="color:var(--ink);font-size:0.72rem;font-weight:700;">Store</a></td></tr>
+      <tr><td>The Healthy Gut Journal</td><td class="days-strong">38</td><td>1</td><td>Gut Health / Digestive Supplement</td><td>get.lanural.com</td><td><span class="tier-badge tier-scaling">Scaling</span></td><td><a href="https://www.facebook.com/ads/library/?id=1751749069537130" target="_blank" style="color:var(--ink);font-size:0.72rem;font-weight:700;">Ad</a> &nbsp; <a href="https://get.lanural.com" target="_blank" style="color:var(--ink);font-size:0.72rem;font-weight:700;">Store</a></td></tr>
+      <tr><td>Lymphedema Support Group</td><td class="days-strong">26</td><td>1</td><td>Lymphedema / Compression Device</td><td>ornexis.com</td><td><span class="tier-badge tier-watch">Watch</span></td><td><a href="https://www.facebook.com/ads/library/?id=1688621279018702" target="_blank" style="color:var(--ink);font-size:0.72rem;font-weight:700;">Ad</a> &nbsp; <a href="https://ornexis.com" target="_blank" style="color:var(--ink);font-size:0.72rem;font-weight:700;">Store</a></td></tr>
+      <tr><td>Koprez</td><td class="days-strong">26</td><td>1</td><td>Knee / Joint Compression Brace</td><td>koprez.com</td><td><span class="tier-badge tier-watch">Watch</span></td><td><a href="https://www.facebook.com/ads/library/?id=27295751786749265" target="_blank" style="color:var(--ink);font-size:0.72rem;font-weight:700;">Ad</a> &nbsp; <a href="https://koprez.com" target="_blank" style="color:var(--ink);font-size:0.72rem;font-weight:700;">Store</a></td></tr>
+      <tr><td>Dr. Riley Porter</td><td class="days-strong">24</td><td>1</td><td>Derma / Doctor Persona Funnel</td><td>mydermadream.com</td><td><span class="tier-badge tier-watch">Watch</span></td><td><a href="https://www.facebook.com/ads/library/?id=27223020697306597" target="_blank" style="color:var(--ink);font-size:0.72rem;font-weight:700;">Ad</a> &nbsp; <a href="https://mydermadream.com" target="_blank" style="color:var(--ink);font-size:0.72rem;font-weight:700;">Store</a></td></tr>
+      <tr><td>Fall Prevention Tips</td><td class="days-strong">20</td><td>1</td><td>Senior Mobility / Anti-Fall Footwear</td><td>hike-footwear.com</td><td><span class="tier-badge tier-watch">Watch</span></td><td><a href="https://www.facebook.com/ads/library/?id=995438943231001" target="_blank" style="color:var(--ink);font-size:0.72rem;font-weight:700;">Ad</a> &nbsp; <a href="https://hike-footwear.com" target="_blank" style="color:var(--ink);font-size:0.72rem;font-weight:700;">Store</a></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ── FOOTER ── -->
+<div class="report-footer">
+  <span>dailyalert · Weight Loss &amp; Health Devices · Ad Intelligence Report · July 13, 2026</span>
+  <span>Next: Product Research Report — Body Sculpting Device hero product</span>
+</div>
+
+</body>
+</html>
